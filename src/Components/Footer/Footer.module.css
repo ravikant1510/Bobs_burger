@@ -1,0 +1,13 @@
+.footer{
+    width: 90%;
+    margin: auto;
+}
+.prev{
+    padding: 4px;
+    cursor: pointer;
+}
+.next{
+    padding: 4px;
+    float: right;
+    cursor: pointer;
+}
