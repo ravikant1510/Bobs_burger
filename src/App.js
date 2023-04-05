@@ -1,31 +1,31 @@
+import { useEffect, useState } from 'react';
 import Header from "./Components/Header/Header";
 import Items from "./Components/Items/Items";
-import { useCallback, useEffect, useState } from 'react';
 import Footer from "./Components/Footer/Footer";
 
 const App = () => {
+  const [url , setUrl] = useState('')
   const [characters, setCharacters] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [skip, setSkip] = useState(0);
-  const [btnState , setBtnState] = useState(1);
-
-  let url = `https://bobsburgers-api.herokuapp.com/characters/?limit=${limit}&skip=${skip}`;
-  const limitChangeHandler = (e) => {
-    setLimit(e.target.value);
-    console.log(e.target.value);
+  let skip, limit;
+  function setLimitAndSkip(obj){
+    if(skip !== obj.skip){
+      obj.setSkip(obj.skip);
+      skip = obj.skip;
+      console.log(skip);
+    }
+    if(limit !== obj.limit){
+      obj.setLimit(obj.limit);
+      limit = obj.limit;
+      console.log(limit);
+    }
+    setUrl(`https://bobsburgers-api.herokuapp.com/characters/?limit=${obj.limit}&skip=${obj.skip}`);
   }
 
-  const skipChangeHandler = (e) => {
-    setSkip(e.target.value);
-    console.log(e.target.value);
+  function buttonClickHandler(obj){
+    // obj.skip
+    console.log(obj);
   }
-
-
-  useEffect(() => {
-    console.log(url);
-    fetchDataHandler();
-  }, [limit,skip])
-
+  
   const fetchDataHandler = (event) => {
     fetch(url).then(response => {
       return response.json();
@@ -34,26 +34,17 @@ const App = () => {
     })
   }
 
-  const buttonClickHandler = (e)=>{
-    if(e.target.value === 'prev'){
-      let newSkip = +skip - +limit;
-      if(newSkip < 0 ){
-        newSkip = 0;
-      }
-      setSkip(newSkip);
-      setBtnState(prev => prev-1);
-    }
-    else{
-      let newSkip = +skip + +limit;
-      setSkip(newSkip);
-      setBtnState(prev => prev+1);
-    }
-  }
+  useEffect(() => {
+    fetchDataHandler();
+  }, [url])
+
+  
+  
   return (
     <>
-      <Header setLimit = {limitChangeHandler} setSkip = {skipChangeHandler} skip={skip} limit={limit}/>
+      <Header onChange = {setLimitAndSkip} />
       <Items users={characters} />
-      <Footer btnState = {btnState} onClick = {buttonClickHandler} />
+      <Footer onClick = {buttonClickHandler} limit = {limit} skip={skip}/>
     </>
   );
 }

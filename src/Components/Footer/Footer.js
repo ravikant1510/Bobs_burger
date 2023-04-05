@@ -1,15 +1,41 @@
-import { Button, Space } from 'antd';
-import classes from './Footer.module.css';
-
+import classes from "./Footer.module.css";
+import { useState } from "react";
 const Footer = (props) => {
-    return (
-        <div className={classes.footer}>
-            {props.btnState > 1 && <button className={classes.prev} value="prev" onClick={props.onClick}>Prev</button>}
-            <button className={classes.next} value="next" onClick={props.onClick}>Next</button>
-            {/* <Button >Prev</Button>
-            <Button>Next</Button> */}
-        </div>
-    );
+  const [btnState , setBtnState] = useState(1);
+    console.log(props);
+  const buttonClickHandler = (e) => {
+    let newSkip =0;
+    if (e.target.value === "prev") {
+      newSkip = +props.skip - +props.limit;
+      if (newSkip < 0) {
+        newSkip = 0;
+      }
+    //   setSkip(newSkip);
+      setBtnState((prev) => prev - 1);
+    } else {
+      newSkip = +props.skip + +props.limit;
+    //   setSkip(newSkip);
+        console.log(props.skip);
+        console.log(props.limit);
+        console.log(newSkip);
+      setBtnState((prev) => prev + 1);
+    }
+
+    props.onClick({skip : newSkip});
+  };
+
+  return (
+    <div className={classes.footer}>
+      {btnState > 1 && (
+        <button className={classes.prev} value="prev" onClick={buttonClickHandler}>
+          Prev
+        </button>
+      )}
+      <button className={classes.next} value="next" onClick={buttonClickHandler}>
+        Next
+      </button>
+    </div>
+  );
 };
 
 export default Footer;
