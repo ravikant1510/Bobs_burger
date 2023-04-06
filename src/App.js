@@ -6,7 +6,7 @@ import Footer from "./Components/Footer/Footer";
 const App = () => {
   const [url , setUrl] = useState('')
   const [characters, setCharacters] = useState([]);
-  let skip, limit;
+  var skip, limit;
   function setLimitAndSkip(obj){
     if(skip !== obj.skip){
       obj.setSkip(obj.skip);
@@ -44,7 +44,7 @@ const App = () => {
     <>
       <Header onChange = {setLimitAndSkip} />
       <Items users={characters} />
-      <Footer onClick = {buttonClickHandler} limit = {limit} skip={skip}/>
+      {/* <Footer onClick = {buttonClickHandler} limit = {limit} skip={skip}/> */}
     </>
   );
 }
