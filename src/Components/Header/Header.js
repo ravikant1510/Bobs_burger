@@ -13,7 +13,8 @@ const Header = (props) => {
   };
 
   useEffect(()=>{
-    props.onChange({limit:limit , skip : skip,setLimit:setLimit , setSkip:setSkip})
+    // props.onChange({limit:limit , skip : skip,setLimit:setLimit , setSkip:setSkip});
+    props.onChange({limit:limit , skip : skip});
   },[limit,skip])
 
   return (

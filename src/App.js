@@ -6,24 +6,31 @@ import Footer from "./Components/Footer/Footer";
 const App = () => {
   const [url , setUrl] = useState('')
   const [characters, setCharacters] = useState([]);
-  var skip, limit;
+  // let skip, limit;
+  const [skip , setSkip]= useState(0);
+  const [limit , setLimit]= useState(10);
   function setLimitAndSkip(obj){
-    if(skip !== obj.skip){
-      obj.setSkip(obj.skip);
-      skip = obj.skip;
-      console.log(skip);
-    }
-    if(limit !== obj.limit){
-      obj.setLimit(obj.limit);
-      limit = obj.limit;
-      console.log(limit);
-    }
+    
+     console.log(obj);
+    // if(skip !== obj.skip){
+    //   obj.setSkip(obj.skip);
+    //   skip = obj.skip;
+    //   // console.log(skip);
+    // }
+    // if(limit !== obj.limit){
+    //   obj.setLimit(obj.limit);
+    //   limit = obj.limit;
+    //   // console.log(limit);
+    // }
+
+    setSkip(obj.skip);
+    setLimit(obj.limit);
     setUrl(`https://bobsburgers-api.herokuapp.com/characters/?limit=${obj.limit}&skip=${obj.skip}`);
   }
 
   function buttonClickHandler(obj){
     // obj.skip
-    console.log(obj);
+    // console.log(obj);
   }
   
   const fetchDataHandler = (event) => {
@@ -44,7 +51,7 @@ const App = () => {
     <>
       <Header onChange = {setLimitAndSkip} />
       <Items users={characters} />
-      {/* <Footer onClick = {buttonClickHandler} limit = {limit} skip={skip}/> */}
+      <Footer onClick = {buttonClickHandler} limit = {limit} skip={skip}/>
     </>
   );
 }
