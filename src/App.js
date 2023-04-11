@@ -11,7 +11,7 @@ const App = () => {
   const [limit , setLimit]= useState(10);
   function setLimitAndSkip(obj){
     
-     console.log(obj);
+    //  console.log(obj);
     // if(skip !== obj.skip){
     //   obj.setSkip(obj.skip);
     //   skip = obj.skip;
@@ -30,7 +30,8 @@ const App = () => {
 
   function buttonClickHandler(obj){
     // obj.skip
-    // console.log(obj);
+    setSkip(obj);
+     console.log(obj);
   }
   
   const fetchDataHandler = (event) => {
@@ -49,7 +50,7 @@ const App = () => {
   
   return (
     <>
-      <Header onChange = {setLimitAndSkip} />
+      <Header onChange = {setLimitAndSkip} skip={skip} />
       <Items users={characters} />
       <Footer onClick = {buttonClickHandler} limit = {limit} skip={skip}/>
     </>

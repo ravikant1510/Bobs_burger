@@ -3,8 +3,8 @@ import { useState } from "react";
 const Footer = (props) => {
   const [btnState , setBtnState] = useState(1);
     // console.log(props);
-    console.log("props skip = ", props.skip);
-    console.log("props limit = ", props.limit);
+    // console.log("props skip = ", props.skip);
+    // console.log("props limit = ", props.limit);
   const buttonClickHandler = (e) => {
     let newSkip =0;
     if (e.target.value === "prev") {
@@ -22,7 +22,7 @@ const Footer = (props) => {
         // console.log(newSkip);
       setBtnState((prev) => prev + 1);
     }
-    // console.log(newSkip);
+    console.log(newSkip);
     // props.onClick({skip : newSkip});
     props.onClick(newSkip);
   };
