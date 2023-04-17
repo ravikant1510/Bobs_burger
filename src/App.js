@@ -1,6 +1,6 @@
 import Header from "./Components/Header/Header";
 import Items from "./Components/Items/Items";
-import { useEffect, useState, useContext, createContext } from "react";
+import { useEffect, useState, createContext } from "react";
 import Footer from "./Components/Footer/Footer";
 
 // creating context 
