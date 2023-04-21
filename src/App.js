@@ -1,59 +1,39 @@
 import Header from "./Components/Header/Header";
 import Items from "./Components/Items/Items";
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import Footer from "./Components/Footer/Footer";
+import { cartActions } from "./store/rout";
+import { useSelector,useDispatch } from "react-redux";
 
 const App = () => {
-  const [characters, setCharacters] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [skip, setSkip] = useState(0);
-  const [btnState , setBtnState] = useState(1);
+  const limit = useSelector(state => state.limit);
+  const skip = useSelector(state => state.skip);
+  const users = useSelector(state => state.users);
 
-  let url = `https://bobsburgers-api.herokuapp.com/characters/?limit=${limit}&skip=${skip}`;
-  const limitChangeHandler = (e) => {
-    setLimit(e.target.value);
-    console.log(e.target.value);
-  }
+  const dispatch = useDispatch();
 
-  const skipChangeHandler = (e) => {
-    setSkip(e.target.value);
-    console.log(e.target.value);
-  }
-
-
+  const url = `https://bobsburgers-api.herokuapp.com/characters/?limit=${limit}&skip=${skip}`;
+  // console.log(url);
+  
   useEffect(() => {
     console.log(url);
     fetchDataHandler();
-  }, [limit,skip])
+  }, [url])
 
   const fetchDataHandler = (event) => {
     fetch(url).then(response => {
       return response.json();
     }).then(data => {
-      setCharacters(data);
+      console.log(data);
+      dispatch(cartActions.setData(data));
     })
   }
 
-  const buttonClickHandler = (e)=>{
-    if(e.target.value === 'prev'){
-      let newSkip = +skip - +limit;
-      if(newSkip < 0 ){
-        newSkip = 0;
-      }
-      setSkip(newSkip);
-      setBtnState(prev => prev-1);
-    }
-    else{
-      let newSkip = +skip + +limit;
-      setSkip(newSkip);
-      setBtnState(prev => prev+1);
-    }
-  }
   return (
     <>
-      <Header setLimit = {limitChangeHandler} setSkip = {skipChangeHandler} skip={skip} limit={limit}/>
-      <Items users={characters} />
-      <Footer btnState = {btnState} onClick = {buttonClickHandler} />
+      <Header />
+      <Items />
+      <Footer />
     </>
   );
 }

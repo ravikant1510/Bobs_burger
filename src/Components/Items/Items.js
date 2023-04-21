@@ -1,12 +1,13 @@
-import React, {useEffect} from 'react';
 import Item from "./Item";
+import { useSelector } from 'react-redux';
 
-
-const Items = (props)=>{
-    // useEffect(()=> {
-    //     console.log("items mount")
-    // },[])
-    const allUsers =  props.users.map((item)=>( 
+const Items = ()=>{
+    const users = useSelector(state => state.users);
+    if(users === null){
+        return ;
+    }
+    // console.log("users " + users );
+    const allUsers =  users.map((item)=>( 
         <Item key ={item.id} data = {item}/>
     ));
     return (

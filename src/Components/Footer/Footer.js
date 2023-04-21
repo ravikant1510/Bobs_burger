@@ -1,13 +1,21 @@
-import { Button, Space } from 'antd';
 import classes from './Footer.module.css';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store/rout';
 
 const Footer = (props) => {
+    const dispatch = useDispatch();
+    const nextClickHandler= ()=>{
+        dispatch(cartActions.setNext());
+    }
+
+    const prevClickHandler= ()=>{
+        dispatch(cartActions.setPrev());
+    }
+
     return (
         <div className={classes.footer}>
-            {props.btnState > 1 && <button className={classes.prev} value="prev" onClick={props.onClick}>Prev</button>}
-            <button className={classes.next} value="next" onClick={props.onClick}>Next</button>
-            {/* <Button >Prev</Button>
-            <Button>Next</Button> */}
+            <button className={classes.prev} value="prev" onClick={prevClickHandler}>Prev</button>
+            <button className={classes.next} value="next" onClick={nextClickHandler}>Next</button>
         </div>
     );
 };
